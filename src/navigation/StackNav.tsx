@@ -7,6 +7,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 import Home from "@/screens/Home";
 import Pokemon from "@/screens/Pokemon";
+import Favorites from "@/screens/Favorites";
 
 const StackNav = () => {
   const [mainRoute, setMainRoute] = useState<keyof RootStackParamList>("Home");
@@ -23,6 +24,13 @@ const StackNav = () => {
       <Stack.Screen
         name="Pokemon"
         component={Pokemon}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Favorites"
+        component={Favorites}
         options={{
           headerShown: false,
         }}

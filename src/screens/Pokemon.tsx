@@ -18,7 +18,7 @@ import { PokeService, PokemonFeatures, ApiError } from "@/services/pokeService";
 import AsyncStorage from "@react-native-async-storage/async-storage"; //AsyncStorage con Expo
 
 const Pokemon = ({ navigation, route }: PokemonScreenProps) => {
-  const { name, id } = route.params;
+  const { name, id, urlImg } = route.params;
 
   const [pokemon, setPokemon] = useState<PokemonFeatures | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -101,7 +101,7 @@ const Pokemon = ({ navigation, route }: PokemonScreenProps) => {
         <Ionicons name="chevron-back-outline" size={35} color={"#0000ff"} />
       </TouchableOpacity>
       {pokemon ? (
-        <PokeCardDetails name={name} {...pokemon} />
+        <PokeCardDetails name={name} urlImg={urlImg} {...pokemon} />
       ) : (
         <>
           <EmptyCard />

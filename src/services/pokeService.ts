@@ -9,6 +9,10 @@ export interface ApiError {
 interface Pokemon {
   name: string;
   url: string;
+  id: string;
+  urlImg: string;
+  fav?: boolean; // Agregamos la propiedad opcional "fav" para indicar si es favorito
+  showFavIcon?: boolean; // Agregamos la propiedad opcional "showFavIcon" para controlar la visibilidad del icono de favorito
 }
 
 export interface Pokemons {

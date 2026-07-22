@@ -6,84 +6,90 @@ import { POKE_LOCAL_IMGS, POKE_SERVER_IMGS } from "@/constants/pokeImages";
 
 import { PokemonFeatures } from "@/services/pokeService";
 
-type PokeCardDetailsProps = PokemonFeatures & { name: string };
+type PokeCardDetailsProps = PokemonFeatures & { name: string; urlImg: string };
 
-const PokeCardDetails = ({ name, ...pokemon }: PokeCardDetailsProps) => {
+const PokeCardDetails = ({
+  name,
+  urlImg,
+  ...pokemon
+}: PokeCardDetailsProps) => {
   return (
-      <LinearGradient
-        colors={["#3165AE", "#FFFFFF"]} // Colores del gradiente
-        start={{ x: 0.02, y: 1 }} // Punto inicial (esquina superior izquierda)
-        end={{ x: 2, y: 1 }} // Punto final (esquina inferior derecha)
-        style={styles.cardPokemon}
-      >
-        <Image
-          style={styles.headerImage}
-          source={require("../../assets/img/pokemonLogo.webp")}
-          placeholder={"pokemon"}
-          contentFit="cover"
-          transition={200}
-          cachePolicy="disk"
-        />
+    <LinearGradient
+      colors={["#3165AE", "#FFFFFF"]} // Colores del gradiente
+      start={{ x: 0.02, y: 1 }} // Punto inicial (esquina superior izquierda)
+      end={{ x: 2, y: 1 }} // Punto final (esquina inferior derecha)
+      style={styles.cardPokemon}
+    >
+      <Image
+        style={styles.headerImage}
+        source={require("../../assets/img/pokemonLogo.webp")}
+        placeholder={"pokemon"}
+        contentFit="cover"
+        transition={200}
+        cachePolicy="disk"
+      />
+      <View style={styles.containerPokeImg}>
         <Image
           style={styles.pokeImage}
-          source={{ uri: POKE_SERVER_IMGS[name] }}
+          source={{ uri: urlImg }}
           placeholder={POKE_LOCAL_IMGS[name]}
           contentFit="cover"
           transition={200}
           cachePolicy="disk"
         />
-        <View style={styles.cardPokemonBody}>
-          <Text style={styles.titleInfo}>Information</Text>
-          <View style={styles.pokemonEasyData}>
-            <View style={styles.column}>
-              <Text style={styles.txtEasyData}>Height</Text>
-              <Text style={styles.txtEasyDataValue}>{pokemon?.height}</Text>
-            </View>
-            <View style={styles.column}>
-              <Text style={styles.txtEasyData}>Weight</Text>
-              <Text style={styles.txtEasyDataValue}>{pokemon?.weight}</Text>
-            </View>
-            <View style={styles.column}>
-              <Text style={styles.txtEasyData}>Exp</Text>
-              <Text style={styles.txtEasyDataValue}>
-                {pokemon?.base_experience}
-              </Text>
-            </View>
+      </View>
+      <View style={styles.cardPokemonBody}>
+        <Text style={styles.titleInfo}>Information</Text>
+        <View style={styles.pokemonEasyData}>
+          <View style={styles.column}>
+            <Text style={styles.txtEasyData}>Height</Text>
+            <Text style={styles.txtEasyDataValue}>{pokemon?.height}</Text>
           </View>
-
-          <Text style={styles.titleTypes}>Types</Text>
-          <View style={styles.pokemonTypesData}>
-            {pokemon?.types.map((t, k) => (
-              <View style={styles.column} key={k}>
-                <Text style={styles.txtTypeValue}>{t.type.name}</Text>
-              </View>
-            ))}
+          <View style={styles.column}>
+            <Text style={styles.txtEasyData}>Weight</Text>
+            <Text style={styles.txtEasyDataValue}>{pokemon?.weight}</Text>
           </View>
-
-          <View style={styles.pokemonStatsData}>
-            {pokemon?.stats.map((s, k) => (
-              <View style={styles.column} key={k}>
-                <Text style={styles.txtStat}>{s.stat.name}</Text>
-                <Text style={styles.txtStatValue}>{s.base_stat}</Text>
-              </View>
-            ))}
-          </View>
-
-          <Text style={styles.titleSkills}>Skills</Text>
-          <View style={styles.pokemonSkillsData}>
-            {pokemon?.abilities.map((a, k) => (
-              <View style={styles.column} key={k}>
-                <Text style={styles.txtSkillValue}>{a.ability.name}</Text>
-              </View>
-            ))}
+          <View style={styles.column}>
+            <Text style={styles.txtEasyData}>Exp</Text>
+            <Text style={styles.txtEasyDataValue}>
+              {pokemon?.base_experience}
+            </Text>
           </View>
         </View>
-      </LinearGradient>
+
+        <Text style={styles.titleTypes}>Types</Text>
+        <View style={styles.pokemonTypesData}>
+          {pokemon?.types.map((t, k) => (
+            <View style={styles.column} key={k}>
+              <Text style={styles.txtTypeValue}>{t.type.name}</Text>
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.pokemonStatsData}>
+          {pokemon?.stats.map((s, k) => (
+            <View style={styles.column} key={k}>
+              <Text style={styles.txtStat}>{s.stat.name}</Text>
+              <Text style={styles.txtStatValue}>{s.base_stat}</Text>
+            </View>
+          ))}
+        </View>
+
+        <Text style={styles.titleSkills}>Skills</Text>
+        <View style={styles.pokemonSkillsData}>
+          {pokemon?.abilities.map((a, k) => (
+            <View style={styles.column} key={k}>
+              <Text style={styles.txtSkillValue}>{a.ability.name}</Text>
+            </View>
+          ))}
+        </View>
+      </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
-      cardPokemon: {
+  cardPokemon: {
     flexDirection: "column",
     borderRadius: 20,
   },
@@ -93,8 +99,12 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
+  containerPokeImg: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   pokeImage: {
-    width: "auto",
+    width: 200,
     height: 250,
   },
 
